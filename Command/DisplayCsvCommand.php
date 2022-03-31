@@ -6,6 +6,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DisplayCsvCommand extends Command
 {
@@ -17,41 +20,22 @@ class DisplayCsvCommand extends Command
         $this->addArgument('filename', InputArgument::OPTIONAL, 'Target File');
     }
 
-    private $csvParsingOptions = array(
-        'ignoreFirstLine' => true
-    );
-
+    private function csvParser($filename)
+    {
+        $file = fopen($filename, "r");
+        return fgetcsv($file, 0, ';');
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $csv = $this->parseCSV($input->getArgument('filename'));
-        var_dump($csv);
+        $rawCsv = $this->csvParser($input->getArgument('filename'));
+        var_dump($rawCsv);
 
         $table = new Table($output);
         $table
-            ->setHeaders(['Sku', 'Status', 'Price', 'Description', 'CreatedAt', 'slupg'])
-            ->setRows($csv)
+            ->setHeaders($rawCsv);
         ;
         $table->render();
         return 0;
-    }
-
-    private function parseCSV($fileName): array
-    {
-        $ignore = $this->csvParsingOptions['ignoreFirstLine'];
-        $rows = array();
-
-        if(($handle = fopen($fileName, "r")) !== false)
-        {
-            $i=0;
-            while(($data = fgetcsv($handle, null, ';')) !== false)
-            {
-                $i++;
-                if ($ignore && $i == 1) { continue; }
-                $rows[] = $data;
-            }
-            fclose($handle);
-        }
-        return $rows;
     }
 }

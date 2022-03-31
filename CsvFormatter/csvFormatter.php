@@ -1,6 +1,8 @@
 <?php
 Namespace CsvDisplayTool\CsvFormatter;
 
+use CsvDisplayTool\CsvParser;
+
 class csvFormatter {
     public  $columnName;
     public $columContent;

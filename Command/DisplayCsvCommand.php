@@ -14,14 +14,28 @@ class DisplayCsvCommand extends Command
     protected function configure(): void
     {
         $this->setDescription('Allows you to Display Csv File in CLI');
-        $this->addArgument('filename', InputArgument::REQUIRED, 'Target File');
+        $this->addArgument('filename', InputArgument::OPTIONAL, 'Target File');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $fileOpen = fopen($input->getArgument('filename'), "r");
+
+        if ($fileOpen !== FALSE)
+        {
+
+            while (($data = fgetcsv($fileOpen, 1000, ",")) !== FALSE)
+            {
+                $array[] = $data;
+            }
+
+            fclose($fileOpen);
+        }
+        var_dump($array);
+
         $table = new Table($output);
         $table
-            ->setHeaders(['Sku', 'Status', 'Price', 'Description', 'CreatedAt', 'slug'])
+            ->setHeaders(['Sku', 'Status', 'Price', 'Description', 'CreatedAt', 'slupg'])
         ;
         $table->render();
         return 0;

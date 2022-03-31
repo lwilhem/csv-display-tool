@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "CsvDisplayTool\\CsvParser\\": "CsvParser/",
+            "CsvDisplayTool\\CsvParser\\": "FileParser/",
             "CsvDisplayTool\\CsvFormatter\\": "CsvFormatter/",
             "CsvDisplayTool\\Command\\": "Command/"
         }

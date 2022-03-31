@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Lwilhem\\CsvDisplayTool\\": "src/"
+            "CsvDisplayTool\\CsvParser\\": "CsvParser/",
+            "CsvDisplayTool\\CsvDisplay\\": "CsvDisplayCommand"
         }
     },
     "authors": [
@@ -16,6 +17,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "symfony/console": "6.0.x-dev"
     }
 }

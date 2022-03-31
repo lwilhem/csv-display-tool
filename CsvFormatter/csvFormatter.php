@@ -1,20 +1,10 @@
 <?php
 Namespace CsvDisplayTool\CsvFormatter;
 
-use CsvDisplayTool\CsvParser;
-
-class csvFormatter {
-    public  $columnName;
-    public $columContent;
-
-    public function __construct($columnName, $columContent)
-    {
-        $this->columContent = $columContent;
-        $this->columnName = $columnName;
-    }
-
-    public function FormatCsv()
+class csvFormatter{
+    public function formatArray($toFormatArray)
     {
 
+        return $toFormatArray;
     }
 }

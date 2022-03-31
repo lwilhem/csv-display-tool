@@ -1,14 +1,15 @@
 <?php
 Namespace CsvDisplayTool\Command;
 
+use CsvDisplayTool\CsvFormatter\csvFormatter;
+use CsvDisplayTool\CsvParser\CsvParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
+ini_set('auto_detect_line_endings',TRUE);
 
 class DisplayCsvCommand extends Command
 {
@@ -20,20 +21,19 @@ class DisplayCsvCommand extends Command
         $this->addArgument('filename', InputArgument::OPTIONAL, 'Target File');
     }
 
-    private function csvParser($filename)
-    {
-        $file = fopen($filename, "r");
-        return fgetcsv($file, 0, ';');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $rawCsv = $this->csvParser($input->getArgument('filename'));
-        var_dump($rawCsv);
+        $parseImport = new CsvParser();
+        $formatterImport = new csvFormatter();
+
+        $parsedArray = $parseImport->csvParser($input->getArgument('filename'));
+        $formattedArray = $formatterImport->formatArray($parsedArray);
+
+        var_dump($formattedArray);
 
         $table = new Table($output);
         $table
-            ->setHeaders($rawCsv);
+            ->setHeaders([]);
         ;
         $table->render();
         return 0;

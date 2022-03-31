@@ -1,0 +1,21 @@
+{
+    "name": "lwilhem/csv-display-tool",
+    "description": "Utility Package to Display CSV Files Data in CLI",
+    "type": "symfony-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Lwilhem\\CsvDisplayTool\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wilhem Lecanu",
+            "email": "wilhem.lecanu@edu.devinci.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0"
+    }
+}

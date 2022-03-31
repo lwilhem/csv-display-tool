@@ -5,8 +5,9 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "CsvDisplayTool\\Command\\": "Command",
-            "CsvDisplayTool\\CsvParser\\": "CsvParser/"
+            "CsvDisplayTool\\CsvParser\\": "CsvParser/",
+            "CsvDisplayTool\\CsvFormatter\\": "CsvFormatter/",
+            "CsvDisplayTool\\Command\\": "Command/"
         }
     },
     "authors": [
@@ -18,6 +19,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.2",
-        "symfony/console": "6.0.x-dev"
+        "symfony/console": "6.0.x-dev",
+        "symfony/serializer": "6.0.x-dev"
     }
 }

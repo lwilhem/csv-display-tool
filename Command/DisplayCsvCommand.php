@@ -17,27 +17,41 @@ class DisplayCsvCommand extends Command
         $this->addArgument('filename', InputArgument::OPTIONAL, 'Target File');
     }
 
+    private $csvParsingOptions = array(
+        'ignoreFirstLine' => true
+    );
+
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $fileOpen = fopen($input->getArgument('filename'), "r");
-
-        if ($fileOpen !== FALSE)
-        {
-
-            while (($data = fgetcsv($fileOpen, 1000, ",")) !== FALSE)
-            {
-                $array[] = $data;
-            }
-
-            fclose($fileOpen);
-        }
-        var_dump($array);
+        $csv = $this->parseCSV($input->getArgument('filename'));
+        var_dump($csv);
 
         $table = new Table($output);
         $table
             ->setHeaders(['Sku', 'Status', 'Price', 'Description', 'CreatedAt', 'slupg'])
+            ->setRows($csv)
         ;
         $table->render();
         return 0;
+    }
+
+    private function parseCSV($fileName): array
+    {
+        $ignore = $this->csvParsingOptions['ignoreFirstLine'];
+        $rows = array();
+
+        if(($handle = fopen($fileName, "r")) !== false)
+        {
+            $i=0;
+            while(($data = fgetcsv($handle, null, ';')) !== false)
+            {
+                $i++;
+                if ($ignore && $i == 1) { continue; }
+                $rows[] = $data;
+            }
+            fclose($handle);
+        }
+        return $rows;
     }
 }

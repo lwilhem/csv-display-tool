@@ -40,7 +40,6 @@ class DisplayCsvCommand extends Command
 
             $output->writeln($serializer->serialize($formattedArray, 'json', ['json_encode_options' => \JSON_PRESERVE_ZERO_FRACTION]));
         } else {
-            var_dump($formattedArray);
             $table = new Table($output);
             $table
                 ->setHeaders($formattedArray[0])

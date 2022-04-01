@@ -35,9 +35,11 @@ class csvFormatter {
         }
     }
 
-    public function descriptionFormat($toFormat): string
+    public function descriptionFormat(string $toFormat): string
     {
-        return nl2br($toFormat, false);
+        $output = preg_replace('/\<br(\s*)?\/?\>/i', PHP_EOL, $toFormat);
+
+        return substr_replace($toFormat, $output, 0);
     }
 
     public function formatArray($toFormatArray): array

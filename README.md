@@ -4,7 +4,7 @@
 
 ```
 
-git pull git@github.com:lwilhem/csv-display-tool.git && composer install
+git clone git@github.com:lwilhem/csv-display-tool.git && composer install
 
 ```
 

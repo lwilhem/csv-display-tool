@@ -21,6 +21,7 @@
         "php": ">=7.2",
         "symfony/console": "6.0.x-dev",
         "symfony/serializer": "6.0.x-dev",
-        "symfony/property-access": "6.0.x-dev"
+        "symfony/property-access": "6.0.x-dev",
+        "ext-json": "*"
     }
 }
